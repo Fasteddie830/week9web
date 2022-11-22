@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+//import AboutUs from "./components/AboutUs";
+import Home from "./components/Home";
+import Locations from "./components/Locations";
+import Navigation from "./components/Navigation";
+import NoPage from "./components/NoPage";
+import Person from "./components/Person";
+import People from "./components/People";
+import { people } from "./data/Data";
+import DisplayFoodItems from "./components/DisplayFoodItems";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigation />}>
+          <Route path="/" element={<Home />} />
+          <Route path="AboutUs" element={<People people={people} />} >
+            <Route path=":personId" element={<Person people={people} />} /></Route>
+          <Route path="Locations" element={<Locations />} />
+          <Route path="DisplayFoodItems" element={<DisplayFoodItems/>}></Route>
+        </Route>
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
